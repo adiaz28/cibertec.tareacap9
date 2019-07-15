@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Cibertec.Models.Customer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@Messages.AlertMessages()
+
+<p>
+    <a href="#" onclick="cibertec.getModal('@Url.Action("Create")'); return false;" data-toggle="modal" data-target="#modal-container" class="btn btn-success btn-sm">
+        <span class="glyphicon glyphicon-plus"></span> Create
+    </a>
+</p>
+
+<div class="pagination"></div>
+<div class="content"></div>
+<div class="pagination"></div>
+
+@Modal.GetModal("Customer", "customer.closeModal();")
+
+<script src="~/Scripts/jquery.bootpag.min.js"></script>
+<script src="~/App/cibertec.js" type="text/javascript"></script>
+<script src="~/App/customer.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+<script src="/signalr/hubs"></script>
+<script type="text/javascript">    
+    $(function () {
+        var customerHub = $.connection.customerHub;
+        $.connection.hub.start().done(function () {
+            console.log('Connected to hub..');
+        });
+    });
+</script>
